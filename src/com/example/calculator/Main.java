@@ -23,15 +23,15 @@ public class Main {
 
             // 사칙연산 부호 선언
             scanner.nextLine(); // 버퍼 비우기
-            String operation = "";
+            char operation;
 
             // 사칙연산 부호 입력
             while (true) {
                 System.out.println("사칙연산 부호(+, -, *, /)를 입력하세요.");
-                operation = scanner.nextLine();
+                operation = scanner.next().charAt(0);
 
                 // 사칙연산 부호가 아닐 시
-                if (operation.equals("+") || operation.equals("-") || operation.equals("*") || operation.equals("/")) {
+                if (operation == ('+') || operation == ('-') || operation == ('*') || operation == ('/')) {
                     break;
                 } else {
                     System.out.println("제대로 입력하세요.");
@@ -48,16 +48,16 @@ public class Main {
 
                     // 사칙연산 수행
                     switch (operation) {
-                        case "+":
+                        case '+':
                             System.out.println("결과는" + " " + (a + b));
                             break;
-                        case "-":
+                        case '-':
                             System.out.println("결과는" + " " + (a - b));
                             break;
-                        case "*":
+                        case '*':
                             System.out.println("결과는" + " " + (a * b));
                             break;
-                        case "/":
+                        case '/':
                             System.out.println("결과는" + " " + (a / b));
                             break;
 
