@@ -65,7 +65,6 @@ public class Main {
                             System.out.println("잘못된 부호입니다. 정확히 입력하세요!");
                     }
 
-
                     //0으로 나눌 수 없으므로 0이 입력되면 문구가 나오면서 두번째 숫자 입력으로 돌아간다.
                 } catch (ArithmeticException e) {
                     System.out.println("0이 아닌 다른 숫자를 입력하세요.");
@@ -97,6 +96,4 @@ public class Main {
         }
     }
 }
-// git 연결 주석
-// git 연결 주석 2
-// git 연결 주석 3
+
