@@ -5,6 +5,55 @@ import java.util.List;
 
 public class Calculator {
 
+    // enum 정의
+    public enum Operation {
+        PLUS('+') {
+            public int calculate(int a, int b) {
+                return a + b;
+            }
+        },
+        MINUS('-') {
+            public int calculate(int a, int b) {
+                return a - b;
+            }
+        },
+        MULTIPLY('*') {
+            public int calculate(int a, int b) {
+                return a * b;
+            }
+        },
+        DIVIDE('/') {
+            public int calculate(int a, int b) {
+                if (b == 0) {
+                    throw new ArithmeticException("0이 아닌 숫자를 입력하세요.");
+                } else {
+                    return a / b;
+                }
+            }
+        };
+
+        // 속성
+        private final char symbol;
+
+        // 생성자
+        Operation(char symbol) {
+            this.symbol = symbol;
+        }
+
+        // 추상 메서드
+        public abstract int calculate(int a, int b);
+
+        // 입력된 값이 사칙연산 부호에 있는지 확인
+        public static Calculator.Operation Symbol(char symbol) {
+            for (Calculator.Operation op : Calculator.Operation.values()) {
+                if (op.symbol == symbol) {
+                    return op;
+                }
+            }
+            throw new IllegalArgumentException("잘못 입력하셨습니다.");
+        }
+    }
+
     // 속성
     private List<Integer> resultList;
 
@@ -14,37 +63,10 @@ public class Calculator {
         this.resultList = new ArrayList<>();
     }
 
-
-    // 기능
+    // 기능: enum 을 사용
     public int calculate(int a, int b, char operation) {
-        switch (operation) {
-            case '+':
-                // 원래 코드
-//                System.out.println("결과는" + " " + (a + b));
-//                break;
-                // 수정 코드
-//                int result1 = a + b;
-//                break;
-                // 위 식을 return을 사용해서 한줄로 하기.
-                return a + b;
-            case '-':
-                return a - b;
-            case '*':
-                return a * b;
-            case '/':
-                if (b == 0) {
-                    throw new ArithmeticException("0이 아닌 숫자를 입력하세요.");
-                } else {
-                    return a / b;
-                }
-            default:
-                // 메서드가 int형 이기 때문에 default 블록에서도 int값이 반환되어야 한다.
-                // 하지만, 현재는 메시지만 반환하고 있다.
-//                System.out.println("잘못된 부호입니다. 정확히 입력하세요!");
-                // 따라서 throw 를 사용한다.
-                // 반환값을 직접 제공하지 않지만 이를 메서드 종료로 처리.
-                throw new IllegalArgumentException("잘못 입력했습니다. : " + operation);
-        }
+        Calculator.Operation op = Calculator.Operation.Symbol(operation);
+        return op.calculate(a, b);
     }
 
     // 결과 저장
