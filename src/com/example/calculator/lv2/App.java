@@ -7,7 +7,7 @@ public class App {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        Calculator calculator = new Calculator();
+        ArithmeticCalculator arithmeticCalculator = new ArithmeticCalculator();
         int a = 0;
         int b = 1;
         char operation = '+';
@@ -57,17 +57,17 @@ public class App {
             }
 
             // 결과 출력
-            int result = calculator.calculate(a, b, operation);
+            int result = arithmeticCalculator.calculate(a, b, operation);
             System.out.println("결과는 : " + result);
 
             // 결과를 배열에 저장
-            calculator.saveResultList(result);
+            arithmeticCalculator.saveResultList(result);
 
             // 배열 불러오기
-            System.out.println("모든 결과 : " + calculator.getResultList());
+            System.out.println("모든 결과 : " + arithmeticCalculator.getResultList());
 
             // 먼저 들어온 데이터 삭제 기능 호출
-            calculator.removeResultList(result);
+            arithmeticCalculator.removeResultList(result);
 
             // 버퍼 비우기
             scanner.nextLine();
