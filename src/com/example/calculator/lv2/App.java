@@ -12,7 +12,6 @@ public class App {
         double b = 0;
         char operation = '+';
 
-
         while (true) {
             // 숫자가 아닌 다른 값이 입력되면 처음으로 돌아간다.
             try {
@@ -58,7 +57,8 @@ public class App {
             }
 
             // 결과 출력
-            double result = arithmeticCalculator.calculate(a, b, operation);
+            Operation operator = Operation.Symbol(operation);
+            double result = operator.calculate(a, b);
             System.out.println("결과는 : " + result);
 
             // 결과를 배열에 저장
@@ -68,7 +68,7 @@ public class App {
             System.out.println("모든 결과 : " + arithmeticCalculator.getResultList());
 
             // 먼저 들어온 데이터 삭제 기능 호출
-            arithmeticCalculator.removeResultList(result);
+            arithmeticCalculator.removeResultList();
 
             // 버퍼 비우기
             scanner.nextLine();

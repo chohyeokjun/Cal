@@ -3,43 +3,33 @@ package com.example.calculator.lv2;
 import java.util.ArrayList;
 import java.util.List;
 
-// enum 정의
+// enum 정의(enum generic 타입을 사용 못함.)
 enum Operation {
-    PLUS('+') {
-        public double calculate(double a, double b) {
-            return a + b;
+    PLUS('+', (a, b) -> a + b),
+    MINUS('-', (a, b) -> a - b),
+    MULTIPLY('*', (a, b) -> a * b),
+    DIVIDE('/', (a, b) -> {
+        if (b == 0) {
+            throw new ArithmeticException("0이 아닌 숫자를 입력하세요.");
+        } else {
+            return a / b;
         }
-    },
-    MINUS('-') {
-        public double calculate(double a, double b) {
-            return a - b;
-        }
-    },
-    MULTIPLY('*') {
-        public double calculate(double a, double b) {
-            return a * b;
-        }
-    },
-    DIVIDE('/') {
-        public double calculate(double a, double b) {
-            if (b == 0) {
-                throw new ArithmeticException("0이 아닌 숫자를 입력하세요.");
-            } else {
-                return a / b;
-            }
-        }
-    };
+    });
 
     // 속성
     private final char symbol;
+    private final CalculatorLambda calculatorLambda;
 
     // 생성자
-    Operation(char symbol) {
+    Operation(char symbol, CalculatorLambda calculatorLambda) {
         this.symbol = symbol;
+        this.calculatorLambda = calculatorLambda;
     }
 
-    // 추상 메서드
-    public abstract double calculate(double a, double b);
+    // 인터페이스 참조 메서드
+    public double calculate(double a, double b) {
+        return calculatorLambda.calculate(a, b);
+    }
 
     // 입력된 값이 사칙연산 부호에 있는지 확인
     public static Operation Symbol(char symbol) {
@@ -53,20 +43,12 @@ enum Operation {
 }
 
 public class ArithmeticCalculator<T> {
-
     // 속성
     private List<T> resultList;
-
 
     // 생성자
     public ArithmeticCalculator() {
         this.resultList = new ArrayList<>();
-    }
-
-    // 기능: enum 을 사용
-    public double calculate(double a, double b, char operation) {
-        Operation op = Operation.Symbol(operation);
-        return op.calculate(a, b);
     }
 
     // 결과 저장
@@ -85,7 +67,7 @@ public class ArithmeticCalculator<T> {
     }
 
     // 먼저 저장된 데이터 삭제
-    public void removeResultList(T result) {
+    public void removeResultList() {
         if (resultList.size() >= 5) {
             resultList.remove(0);
         }
