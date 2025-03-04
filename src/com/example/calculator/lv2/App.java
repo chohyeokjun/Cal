@@ -8,8 +8,8 @@ public class App {
 
         Scanner scanner = new Scanner(System.in);
         ArithmeticCalculator arithmeticCalculator = new ArithmeticCalculator();
-        int a = 0;
-        int b = 1;
+        double a = 0;
+        double b = 0;
         char operation = '+';
 
 
@@ -18,7 +18,7 @@ public class App {
             try {
                 // 첫번째 숫자 입력
                 System.out.print("첫번째 숫자를 입력하세요 : ");
-                a = scanner.nextInt();
+                a = scanner.nextDouble();
             } catch (InputMismatchException e) {
                 System.out.println("잘못 입력하셨습니다. 숫자를 입력하세요.");
                 scanner.nextLine(); // 버퍼 비우기
@@ -44,20 +44,21 @@ public class App {
                 try {
                     // 두 번째 숫자 입력
                     System.out.print("두번째 숫자를 입력하세요 : ");
-                    b = scanner.nextInt();
+                    b = scanner.nextDouble();
                     if (operation == '/' && b == 0) {
                         throw new ArithmeticException("0이 아닌 다른 숫자를 입력하세요.");
                     }
                     break;
                 } catch (InputMismatchException e) {
                     System.out.println("잘못 입력하셨습니다. 숫자를 입력하세요.");
+                    scanner.nextLine(); // 무한루프 방지 버퍼 비우기
                 } catch (ArithmeticException e) {
                     System.out.println(e.getMessage());
                 }
             }
 
             // 결과 출력
-            int result = arithmeticCalculator.calculate(a, b, operation);
+            double result = arithmeticCalculator.calculate(a, b, operation);
             System.out.println("결과는 : " + result);
 
             // 결과를 배열에 저장

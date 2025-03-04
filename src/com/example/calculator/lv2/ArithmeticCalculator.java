@@ -6,22 +6,22 @@ import java.util.List;
 // enum 정의
 enum Operation {
     PLUS('+') {
-        public int calculate(int a, int b) {
+        public double calculate(double a, double b) {
             return a + b;
         }
     },
     MINUS('-') {
-        public int calculate(int a, int b) {
+        public double calculate(double a, double b) {
             return a - b;
         }
     },
     MULTIPLY('*') {
-        public int calculate(int a, int b) {
+        public double calculate(double a, double b) {
             return a * b;
         }
     },
     DIVIDE('/') {
-        public int calculate(int a, int b) {
+        public double calculate(double a, double b) {
             if (b == 0) {
                 throw new ArithmeticException("0이 아닌 숫자를 입력하세요.");
             } else {
@@ -39,7 +39,7 @@ enum Operation {
     }
 
     // 추상 메서드
-    public abstract int calculate(int a, int b);
+    public abstract double calculate(double a, double b);
 
     // 입력된 값이 사칙연산 부호에 있는지 확인
     public static Operation Symbol(char symbol) {
@@ -52,10 +52,10 @@ enum Operation {
     }
 }
 
-public class ArithmeticCalculator {
+public class ArithmeticCalculator<T> {
 
     // 속성
-    private List<Integer> resultList;
+    private List<T> resultList;
 
 
     // 생성자
@@ -64,28 +64,28 @@ public class ArithmeticCalculator {
     }
 
     // 기능: enum 을 사용
-    public int calculate(int a, int b, char operation) {
+    public double calculate(double a, double b, char operation) {
         Operation op = Operation.Symbol(operation);
         return op.calculate(a, b);
     }
 
     // 결과 저장
-    public void saveResultList(int result) {
+    public void saveResultList(T result) {
         resultList.add(result);
     }
 
     // 결과 배열로 출력(getter)
-    public List<Integer> getResultList() {
+    public List<T> getResultList() {
         return resultList;
     }
 
     // (setter)
-    public void setResultList(List<Integer> resultList) {
+    public void setResultList(List<T> resultList) {
         this.resultList = resultList;
     }
 
     // 먼저 저장된 데이터 삭제
-    public void removeResultList(int result) {
+    public void removeResultList(T result) {
         if (resultList.size() >= 5) {
             resultList.remove(0);
         }
