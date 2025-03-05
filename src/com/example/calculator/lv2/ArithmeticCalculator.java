@@ -1,6 +1,7 @@
 package com.example.calculator.lv2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 // enum 정의(enum generic 타입을 사용 못함.)
@@ -32,13 +33,11 @@ enum Operation {
     }
 
     // 입력된 값이 사칙연산 부호에 있는지 확인
-    public static Operation Symbol(char symbol) {
-        for (Operation op : values()) {
-            if (op.symbol == symbol) {
-                return op;
-            }
-        }
-        throw new IllegalArgumentException("잘못 입력하셨습니다.");
+    public static  Operation Symbol(char operation) {
+       return Arrays.stream(Operation.values())  // Operation의 값들을 순회한다.
+               .filter(op -> operation == op.symbol)  // 입력받은 부호가 enum의 부호와 일치하는지 확인
+               .findFirst()  // 첫 번째 요소를 찾는다.
+               .orElseThrow(() -> new IllegalArgumentException("잘못된 부호입니다."));  // null 값일 때 예외처리
     }
 }
 
@@ -52,8 +51,8 @@ public class ArithmeticCalculator<T> {
     }
 
     // 결과 저장
-    public void saveResultList(T result) {
-        resultList.add(result);
+    public void saveResultList(T result){
+            resultList.add(result);
     }
 
     // 결과 배열로 출력(getter)
