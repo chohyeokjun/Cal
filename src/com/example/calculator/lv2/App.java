@@ -82,6 +82,8 @@ public class App {
                     break;
                 } else if (answer.equals("exit")) {
                     System.out.println("계산기를 종료합니다.");
+                    // 명시적으로 scanner를 닫아주는 것이 권장된다.(좋은 습관)
+                    scanner.close();
                     return;
                 } else {
                     System.out.println("잘못된 입력입니다.");
