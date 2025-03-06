@@ -9,13 +9,7 @@ enum Operation {
     PLUS('+', (a, b) -> a + b),
     MINUS('-', (a, b) -> a - b),
     MULTIPLY('*', (a, b) -> a * b),
-    DIVIDE('/', (a, b) -> {
-        if (b == 0) {
-            throw new ArithmeticException("0이 아닌 숫자를 입력하세요.");
-        } else {
-            return a / b;
-        }
-    });
+    DIVIDE('/', (a, b) -> a / b);
 
     // 속성
     private final char symbol;
